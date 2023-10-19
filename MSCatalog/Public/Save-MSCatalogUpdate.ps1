@@ -93,6 +93,8 @@ function Save-MSCatalogUpdate {
             ParameterSetName = "ByGuid"
         )]
         [Switch] $UseBits,
+        
+        [switch] $IgnoreInvalidHashes,
 
         [Parameter(Mandatory = $false)]
         [switch] $AcceptMultiFileUpdates
@@ -143,7 +145,7 @@ function Save-MSCatalogUpdate {
 
         foreach ($Item in $ToDownload) {
             $OutFile = Join-Path -Path (Get-Item -Path $Destination) -ChildPath $Item.Split('/')[-1]
-            Invoke-DownloadFile -Uri $Item -Path $OutFile -UseBits:$UseBits
+            Invoke-DownloadFile -Uri $Item -Path $OutFile -UseBits:$UseBits -IgnoreInvalidHashes:$IgnoreInvalidHashes
         }
     }
 }
